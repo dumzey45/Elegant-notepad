@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Notepad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .note-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .rotate {
+            animation: rotate 2s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8 fade-in">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+                    Elegant Notepad
+                </h1>
+                <button id="newNoteBtn" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
+                    <i class="fas fa-plus mr-2"></i> New Note
+                </button>
+            </div>
+            <p class="text-gray-500 mt-2">Your thoughts, beautifully organized</p>
+        </header>
+
+        <!-- Notes Grid -->
+        <div id="notesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Notes will be dynamically added here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="text-center py-20 fade-in">
+            <div class="mx-auto w-24 h-24 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-edit text-3xl text-purple-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-700">No notes yet</h3>
+            <p class="text-gray-500 mb-4">Create your first note by clicking the button above</p>
+            <button id="emptyNewNoteBtn" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                Create First Note
+            </button>
+        </div>
+    </div>
+
+    <!-- Note Modal -->
+    <div id="noteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" id="noteTitle" placeholder="Note Title" class="text-2xl font-bold w-full focus:outline-none border-b-2 border-transparent focus:border-purple-500 transition-colors duration-300">
+                    <div class="flex space-x-2">
+                        <button id="saveNoteBtn" class="p-2 text-green-600 hover:bg-green-50 rounded-full transition-colors duration-200">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button id="deleteNoteBtn" class="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors duration-200">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button id="closeModalBtn" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <textarea id="noteContent" class="w-full h-64 p-2 focus:outline-none resize-none border-2 border-transparent focus:border-purple-200 rounded-lg transition-colors duration-300" placeholder="Start writing your thoughts here..."></textarea>
+                <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
+                    <div class="text-sm text-gray-500">
+                        Last saved: <span id="lastSaved">Just now</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="p-2 text-purple-600 hover:bg-purple-50 rounded-full transition-colors duration-200 tooltip" data-tooltip="Bold">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button class="p-2 text-purple-600 hover:bg-purple-50 rounded-full transition-colors duration-200 tooltip" data-tooltip="Italic">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button class="p-2 text-purple-600 hover:bg-purple-50 rounded-full transition-colors duration-200 tooltip" data-tooltip="List">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 flex items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="toastMessage">Note saved successfully!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
