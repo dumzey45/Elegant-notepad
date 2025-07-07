@@ -1,2 +1,2 @@
 # Elegant-notepad
-A web for writing note
+A web app for writing note
